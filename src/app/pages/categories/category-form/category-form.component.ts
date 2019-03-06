@@ -71,4 +71,50 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       : this.pageTitle = `Editando Categoria: ${this.category.name || ''}`;
   }
 
+  submitForm() {
+    this.submittingForm = true;
+    this.currentAction === 'new'
+      ? this.createCategory()
+      : this.updateCategory();
+  }
+
+  private createCategory() {
+    const category: Category = Object.assign(
+      new Category(),
+      this.categoryForm.value
+    );
+    this.categoryService.create(category)
+      .subscribe(
+        created => this.actionsForSuccess(created, 'criada'),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private updateCategory() {
+    const category: Category = Object.assign(
+      new Category(),
+      this.categoryForm.value
+    );
+    this.categoryService.update(category)
+      .subscribe(
+        created => this.actionsForSuccess(created, 'editada'),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private actionsForSuccess(category: Category, msg: string) {
+    toastr.success(`Categoria ${msg} com sucesso!`);
+    this.router.navigateByUrl('categories', {skipLocationChange: true})
+      .then(
+        () => this.router.navigate(['categories', category.id, 'edit'])
+      );
+  }
+
+  private actionsForError(error) {
+    toastr.error('Error ao tentar criar a nova categoria!');
+    this.submittingForm = false;
+    error.status === 422
+      ? this.serverErrorMessages = JSON.parse(error.body).errors
+      : this.serverErrorMessages = ['Falha na comunicação com o servidor. Tente novamente.'];
+  }
 }

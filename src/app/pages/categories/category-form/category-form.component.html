@@ -2,12 +2,12 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
     <li class="breadcrumb-item"><a routerLink="/categories">Categorias</a></li>
-    <li class="breadcrumb-item active">Formulário de Categoria</li>
+    <li class="breadcrumb-item active">{{pageTitle}}</li>
   </ol>
 </nav>
 <div class="row mb-4">
   <div class="col-md">
-    <h1 class="h2 border-left pl-2">Formulário de Categoria - {{currentAction}}</h1>
+    <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
   </div>
   <div class="col-md">
     <a routerLink="/categories" class="btn btn-light float-right">
@@ -18,7 +18,7 @@
     </a>
   </div>
 </div>
-<form [formGroup]="categoryForm">
+<form [formGroup]="categoryForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações da Categoria
@@ -27,17 +27,21 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="name">Nome</label>
-          <input class="form-control" id="name" type="text">
+          <input class="form-control" id="name" type="text" formControlName="name">
+          <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
+            <small *ngIf="categoryForm.get('name').errors.required">Campo Obrigatório</small>
+            <small *ngIf="categoryForm.get('name').errors.minlength">Nome deve ter no mínimo 2 caracteres</small>
+          </div>
         </div>
 
         <div class="form-group col-md-8">
           <label for="description">Descrição</label>
-          <input class="form-control" id="description" type="text">
+          <input class="form-control" id="description" type="text" formControlName="description">
         </div>
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary float-right mt-3">
+  <button [disabled]="submittingForm || categoryForm.invalid" type="submit" class="btn btn-primary float-right mt-3">
     <div class="d-flex pt-1">
       <i class="pi pi-save pr-1"></i>
       Salvar
