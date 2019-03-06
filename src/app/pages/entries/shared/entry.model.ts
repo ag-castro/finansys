@@ -3,15 +3,15 @@ import {Category} from '../../categories/shared/category.model';
 export class Entry {
 
   constructor(
-    id?: number,
-    name?: string,
-    description?: string,
-    type?: string,
-    amount?: string,
-    date?: string,
-    paid?: boolean,
-    categoryId?: number,
-    category?: Category,
+    public id?: number,
+    public name?: string,
+    public description?: string,
+    public type?: string,
+    public amount?: string,
+    public date?: string,
+    public paid?: boolean,
+    public categoryId?: number,
+    public category?: Category,
   ) {}
 
   get paidText(): string {
@@ -23,5 +23,4 @@ export class Entry {
     renevue: 'Receita'
   };
 
-  paid: string;
 }
