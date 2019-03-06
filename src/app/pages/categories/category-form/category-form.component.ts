@@ -86,7 +86,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     this.categoryService.create(category)
       .subscribe(
         created => this.actionsForSuccess(created, 'criada'),
-        error => this.actionsForError(error)
+        error => this.actionsForError(error, 'criar')
       );
   }
 
@@ -98,7 +98,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     this.categoryService.update(category)
       .subscribe(
         created => this.actionsForSuccess(created, 'editada'),
-        error => this.actionsForError(error)
+        error => this.actionsForError(error, 'editar')
       );
   }
 
@@ -110,8 +110,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       );
   }
 
-  private actionsForError(error) {
-    toastr.error('Error ao tentar criar a nova categoria!');
+  private actionsForError(error, msg: string) {
+    toastr.error(`Error ao tentar ${msg} a categoria!`);
     this.submittingForm = false;
     error.status === 422
       ? this.serverErrorMessages = JSON.parse(error.body).errors
