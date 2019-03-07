@@ -18,7 +18,7 @@
     </a>
   </div>
 </div>
-<form [formGroup]="categoryForm" (submit)="submitForm()">
+<form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações da Categoria
@@ -28,9 +28,9 @@
         <div class="form-group col-md-4">
           <label for="name">Nome</label>
           <input class="form-control" id="name" type="text" formControlName="name">
-          <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
-            <small *ngIf="categoryForm.get('name').errors.required">Campo Obrigatório</small>
-            <small *ngIf="categoryForm.get('name').errors.minlength">Nome deve ter no mínimo 2 caracteres</small>
+          <div class="text-danger" *ngIf="resourceForm.get('name').invalid && resourceForm.get('name').touched">
+            <small *ngIf="resourceForm.get('name').errors.required">Campo Obrigatório</small>
+            <small *ngIf="resourceForm.get('name').errors.minlength">Nome deve ter no mínimo 2 caracteres</small>
           </div>
         </div>
 
@@ -47,10 +47,10 @@
       <li *ngFor="let error of serverErrorMessages" >{{error}}</li>
     </ul>
   </div>
-  <button [disabled]="submittingForm || categoryForm.invalid" type="submit" class="btn btn-primary float-right mt-3">
-    <div class="d-flex pt-1">
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary float-right mt-3">
+    <span class="d-flex pt-1">
       <i class="pi pi-save pr-1"></i>
       Salvar
-    </div>
+    </span>
   </button>
 </form>

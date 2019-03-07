@@ -18,7 +18,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected router: Router;
   protected formBuilder: FormBuilder;
 
-  constructor(
+  protected constructor(
     protected injector: Injector,
     protected resourceService: BaseResourceService<T>,
     protected jsonDataToResourceFn: (jsonData) => T,
