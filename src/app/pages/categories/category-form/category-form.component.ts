@@ -1,16 +1,17 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import {Component, OnInit, AfterContentChecked, Injectable} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Category} from '../shared/category.model';
 import {CategoryService} from '../shared/category.service';
 import { switchMap } from 'rxjs/operators';
-import toastr from 'toastr';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss']
 })
+
 export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   currentAction: string;
@@ -24,7 +25,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -103,7 +105,11 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private actionsForSuccess(category: Category, msg: string) {
-    toastr.success(`Categoria ${msg} com sucesso!`);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Service Message',
+      detail: `Categoria ${msg} com sucesso!`
+    });
     this.router.navigateByUrl('categories', {skipLocationChange: true})
       .then(
         () => this.router.navigate(['categories', category.id, 'edit'])
@@ -111,7 +117,11 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private actionsForError(error, msg: string) {
-    toastr.error(`Error ao tentar ${msg} a categoria!`);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Service Message',
+      detail: `Error ao tentar ${msg} a categoria!`
+    });
     this.submittingForm = false;
     error.status === 422
       ? this.serverErrorMessages = JSON.parse(error.body).errors

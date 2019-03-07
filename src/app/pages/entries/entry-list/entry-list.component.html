@@ -30,8 +30,8 @@
   <tr *ngFor="let entry of entries">
     <td>
       <div class="d-flex flex-column">
-      <strong>{{entry.name}}</strong>
-      <small class="text-success">{{entry.date}}</small>
+      <strong *ngIf="entry.name">{{entry.name}}</strong>
+      <small class="text-success" *ngIf="entry.date">{{entry.date}}</small>
       <small *ngIf="entry.description">{{entry.description}}</small>
       </div>
     </td>
