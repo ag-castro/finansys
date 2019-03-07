@@ -35,7 +35,7 @@ export class EntryService {
   }
 
   create(entry: Entry): Observable<Entry> {
-    return this.categoryService.getCategory(entry.categoryId).pipe(
+    return this.categoryService.getById(entry.categoryId).pipe(
       flatMap(category => {
         entry.category = category;
         return this.http.post(this.apiPath, entry).pipe(
@@ -48,7 +48,7 @@ export class EntryService {
 
   update(entry: Entry): Observable<Entry> {
     const url = `${this.apiPath}/${entry.id}`;
-    return this.categoryService.getCategory(entry.categoryId).pipe(
+    return this.categoryService.getById(entry.categoryId).pipe(
       flatMap(category => {
         entry.category = category;
         return this.http.put(url, entry).pipe(
