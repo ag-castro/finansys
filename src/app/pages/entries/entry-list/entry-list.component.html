@@ -1,17 +1,10 @@
 <app-breadcrumb [items]="[{text: 'Lançamentos'}]"></app-breadcrumb>
-<div class="row mb-4">
-  <div class="col-md">
-    <h1 class="h2 border-left pl-2">Lançamentos</h1>
-  </div>
-  <div class="col-md">
-    <a routerLink="new" class="btn btn-success float-right">
-      <div class="d-flex justify-content-center align-items-center">
-        <i class="pi pi-plus-circle pr-1"></i>
-        Novo Lançamento
-      </div>
-    </a>
-  </div>
-</div>
+<app-pageheader
+  page-title="Lançamentos"
+  button-text="Novo Lançamento"
+  button-link="new"
+  button-class="btn-success"
+></app-pageheader>
 <table class="table table-hover">
   <thead>
     <tr class="bg-primary text-light">

@@ -3,19 +3,12 @@
   {text: pageTitle}
 ]" >
 </app-breadcrumb>
-<div class="row mb-4">
-  <div class="col-md-9">
-    <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
-  </div>
-  <div class="col-md-3">
-    <a routerLink="/entries" class="btn btn-light float-right">
-      <div class="d-flex justify-content-center align-items-center">
-        <i class="pi pi-angle-double-left pr-1"></i>
-        Voltar
-      </div>
-    </a>
-  </div>
-</div>
+<app-pageheader
+  [page-title]="pageTitle"
+  button-text="Voltar"
+  button-link="/entries"
+  button-class="btn-light"
+></app-pageheader>
 <form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
